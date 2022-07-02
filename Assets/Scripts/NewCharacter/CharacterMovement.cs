@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
+[RequireComponent(typeof(PlayerInputProcessor))]
 public class CharacterMovement : MonoBehaviour
 {
     public PlayerInputProcessor playerInput;
