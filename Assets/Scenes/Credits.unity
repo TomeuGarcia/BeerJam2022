@@ -285,7 +285,7 @@ MonoBehaviour:
     callback:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 0}
+        - m_Target: {fileID: 1959665312}
           m_TargetAssemblyTypeName: PlayAudio, Assembly-CSharp
           m_MethodName: DropAudio
           m_Mode: 1
@@ -1006,6 +1006,7 @@ GameObject:
   - component: {fileID: 1959665309}
   - component: {fileID: 1959665308}
   - component: {fileID: 1959665311}
+  - component: {fileID: 1959665312}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -1090,6 +1091,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 66531f9711809c148a7a830477e44c6a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1959665312
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1959665307}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4ae4d82dcca845443873d320cf807bf9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  audioObject: {fileID: 5003091525630667134, guid: 6add08024c9eaa643b12cc700c18a3ac, type: 3}
 --- !u!1 &2055060689
 GameObject:
   m_ObjectHideFlags: 0
