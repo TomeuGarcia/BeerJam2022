@@ -30,31 +30,37 @@ public class CannonUse : MonoBehaviour
 
     [SerializeField] Transform bulletAmountTransform;
     [SerializeField] TextMeshPro bulletAmountText;
-    int bulletAmount = 20;
+    [SerializeField] int bulletAmount = 40;
     int currentBulletAmount;
 
     public delegate void CanonAction();
     public static event CanonAction OnPlayerMount;
     public static event CanonAction OnPlayerDismount;
+    public static event CanonAction OnPlayerRunsOutOfAmmo;
 
 
+    [SerializeField] CanonAudio canonAudio;
 
+    [SerializeField] GameObject controller;
 
     private void Awake()
     {
         crosshair.SetCannonId(canonId);
 
+        controller.SetActive(false);
         //StartCoroutine(ShootLoop());
     }
 
     private void OnEnable()
     {
         OnPlayerMount += DoSetBulletAmount;
+        CovidWall.OnAllPlayersOutOfAmmo += ActivateCanon;
     }
 
     private void OnDisable()
     {
         OnPlayerMount -= DoSetBulletAmount;
+        CovidWall.OnAllPlayersOutOfAmmo -= ActivateCanon;
     }
 
 
@@ -89,6 +95,11 @@ public class CannonUse : MonoBehaviour
                 {
                     --currentBulletAmount;
                     Shoot();
+
+                    if (currentBulletAmount == 0)
+                    {
+                        if (OnPlayerRunsOutOfAmmo != null) OnPlayerRunsOutOfAmmo();
+                    }
                 }
             }
         }
@@ -104,7 +115,10 @@ public class CannonUse : MonoBehaviour
             isPlayerInside = true;
 
             characterMovementUser = collision.gameObject.GetComponent<CharacterMovement>();
+
+            controller.SetActive(true);
         }
+
     }
 
 
@@ -116,6 +130,8 @@ public class CannonUse : MonoBehaviour
             isPlayerInside = false;
 
             characterMovementUser = null;
+
+            controller.SetActive(false);
         }
     }
 
@@ -134,6 +150,8 @@ public class CannonUse : MonoBehaviour
         bulletAmountTransform.DOPunchScale(new Vector3(0.2f, 0.2f, 0f), cannonShotCooldown);
 
         StartCoroutine(ShootPause());
+
+        canonAudio.PlayShootSound();
     }
 
     IEnumerator ShootPause()
@@ -162,6 +180,8 @@ public class CannonUse : MonoBehaviour
         autoRotate.Resume();
 
         if (OnPlayerMount != null) OnPlayerMount();
+
+        canonAudio.PlayCanonMovingSound();
     }
 
     private void DeactivateCanon()
@@ -171,6 +191,10 @@ public class CannonUse : MonoBehaviour
         autoRotate.Pause();
 
         if (OnPlayerDismount != null) OnPlayerDismount();
+
+        canonAudio.PauseCanonMovingSound();
+
+        bulletAmountText.text = "";
     }
 
     public void SetBulletAmount(int bulletAmount)
@@ -185,9 +209,14 @@ public class CannonUse : MonoBehaviour
 
     IEnumerator ProgressiveSetTextMatchCurrentBulletAmount()
     {
+        float soundPitch = 0.75f;
         for (int i = 1; i <= bulletAmount; ++i)
         {
             bulletAmountText.text = i.ToString();
+
+            canonAudio.PlayChargeAmmoSound(soundPitch);
+            soundPitch += Time.deltaTime * 4.0f;
+
             yield return new WaitForSeconds(Time.deltaTime * 3f);
         }        
     }
