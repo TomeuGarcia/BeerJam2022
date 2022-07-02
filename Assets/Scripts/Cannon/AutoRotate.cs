@@ -12,27 +12,10 @@ public class AutoRotate : MonoBehaviour
     [SerializeField] float duration;
 
 
-    private void OnValidate()
-    {
-        if (minRotation > maxRotation) minRotation = maxRotation;
-    }
-
     private void OnEnable()
     {
         RotateToMax();
     }
-
-    private void OnDisable()
-    {
-        
-    }
-
-    public void Shoot()
-    {
-
-    }
-
-
 
 
 
@@ -46,6 +29,22 @@ public class AutoRotate : MonoBehaviour
         rotatingTransform.DORotate(Vector3.forward * minRotation, duration).OnComplete(()=>RotateToMax()).SetEase(Ease.Linear);
     }
 
+
+    public void Pause()
+    {
+        rotatingTransform.DOPause();
+    }
+
+    public void Resume()
+    {
+        rotatingTransform.DOPlay();
+    }
+
+    public void GoToStart()
+    {
+        rotatingTransform.DOKill();
+        //rotatingTransform.DORotate(Vector3.forward * (rotatingTransform.eulerAngles.z - minRotation), 0.2f).SetEase(Ease.Linear);
+    }
 
 
 }

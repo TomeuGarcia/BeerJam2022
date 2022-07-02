@@ -9693,7 +9693,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5410654242092653941, guid: f27ea6eed5ce52543bdc184d2cd419fd, type: 3}
       propertyPath: gamepadId
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5410654242092653943, guid: f27ea6eed5ce52543bdc184d2cd419fd, type: 3}
       propertyPath: m_RootOrder
@@ -12396,7 +12396,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5410654242092653941, guid: f27ea6eed5ce52543bdc184d2cd419fd, type: 3}
       propertyPath: gamepadId
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5410654242092653943, guid: f27ea6eed5ce52543bdc184d2cd419fd, type: 3}
       propertyPath: m_RootOrder
