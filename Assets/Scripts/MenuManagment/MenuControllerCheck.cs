@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.UI;
+
 
 public class MenuControllerCheck : MonoBehaviour
 {
@@ -9,8 +11,9 @@ public class MenuControllerCheck : MonoBehaviour
     public GameObject tick1;
     public int gamepadId0;
     public int gamepadId1;
+    private bool firstTimeLoaded = true;
 
-    [SerializeField] private SceneSwitch sceneSwitch;
+    [SerializeField] private ScreenFader screenFader;
 
     private void Awake()
     {
@@ -33,9 +36,12 @@ public class MenuControllerCheck : MonoBehaviour
             tick1.SetActive(true);
         }
 
-        if (tick0.active && tick1.active)
+        if (tick0.active && tick1.active && firstTimeLoaded)
         {
-            sceneSwitch.OpenScene(1);
+            firstTimeLoaded = false;
+            screenFader.DoFadeInToScene(1);
         }
     }
+
+
 }
