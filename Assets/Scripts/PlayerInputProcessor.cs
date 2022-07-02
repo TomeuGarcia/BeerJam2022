@@ -14,6 +14,7 @@ using UnityEngine.InputSystem;
             movementAxis = Gamepad.all[gamepadId].leftStick.ReadValue();
             if (Gamepad.all[gamepadId].buttonSouth.wasPressedThisFrame)
             {
+                if (OnJumpAction == null) return;
                 OnJumpAction.Invoke();
             }
         }
