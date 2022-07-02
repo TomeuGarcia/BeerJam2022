@@ -6,7 +6,8 @@ using UnityEngine.InputSystem;
     public class PlayerInputProcessor : MonoBehaviour
     {
         public Vector2 movementAxis;
-        public UnityAction OnJumpAction;  
+        public UnityAction OnJumpAction;
+        public UnityAction OnAbilityInvoke;
         public int gamepadId;
 
         void Update()
@@ -15,6 +16,10 @@ using UnityEngine.InputSystem;
             if (Gamepad.all[gamepadId].buttonSouth.wasPressedThisFrame)
             {
                 OnJumpAction.Invoke();
+            }
+            if (Gamepad.all[gamepadId].buttonWest.wasPressedThisFrame)
+            {
+                OnAbilityInvoke.Invoke();
             }
         }
     }
