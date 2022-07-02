@@ -20,7 +20,7 @@ public class CharacterMovement : MonoBehaviour
     public LayerMask groundLayer;
     public bool isGrounded;
     public Transform groundCheckPoint;
-    
+    bool jumping;
     public AnimationCurve accelerationCurve;
     private void OnEnable()
     {
