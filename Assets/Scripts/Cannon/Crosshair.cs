@@ -7,91 +7,102 @@ public class Crosshair : MonoBehaviour
 {
     [SerializeField] Transform referenceTransform;
     [SerializeField] Transform crosshairTransform;
-    [SerializeField] SpriteRenderer sr;
+    [SerializeField] SpriteRenderer crosshairSr;
     [SerializeField] float duration = 0.5f;
 
-    GameObject lastCollisionObject = null;
-    Collider2D newCollision = null;
-    Vector2 startPosition;
-    Vector2 endPosition;
-    float t;
+    [SerializeField] GameObject weakSpotMarker;
 
-    bool isColliding = false;
+    GameObject lastCollisionObject;
+
+    int cannonId; 
 
 
-    private void Update()
+    private void Awake()
     {
-        if (!isColliding)
-        {
-            startPosition = crosshairTransform.position;
-
-            t = Mathf.Clamp01(t -Time.deltaTime);
-            crosshairTransform.position = Vector2.LerpUnclamped(startPosition, endPosition, t);
-        }
-        else
-        {
-            t = Mathf.Clamp01(t + Time.deltaTime);
-            crosshairTransform.position = Vector2.LerpUnclamped(startPosition, endPosition, t);
-        }
-        
+        weakSpotMarker.SetActive(false);
     }
+
+    private void OnEnable()
+    {
+        CannonUse.OnPlayerDismount += HideWeakspotMarker;
+    }
+
+    private void OnDisable()
+    {
+        CannonUse.OnPlayerDismount -= HideWeakspotMarker;
+    }
+
+
+    public void SetCannonId(int cannonId)
+    {
+        this.cannonId = cannonId;
+    }
+
+    private void HideWeakspotMarker()
+    {
+        if (weakSpotMarker == null) return;
+
+        weakSpotMarker.SetActive(false);
+    }
+
 
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.layer == LayerMask.NameToLayer("WeakSpot"))
         {
-            startPosition = crosshairTransform.position;
-            endPosition = collision.transform.position;
-            isColliding = true;
-            t = 0f;
+            if (collision.gameObject.GetComponent<Weakspot>().IsAlreadyDamaged(cannonId)) return;
+
             lastCollisionObject = collision.gameObject;
 
             crosshairTransform.DOPunchScale(new Vector3(0.2f, 0.2f, 0f), duration, 10, 1);
-            //crosshairTransform.DOPunchPosition((collision.transform.position - crosshairTransform.position), duration, 5, 1, true);
-            
+            crosshairSr.DOColor(Color.red, duration / 2.0f).OnComplete(() => Restore());
 
-            sr.DOColor(Color.red, duration / 2.0f).OnComplete(() => Restore());
+            weakSpotMarker.SetActive(true);
+            weakSpotMarker.transform.position = collision.gameObject.transform.position;
         }
     }
-
-    private void OnTriggerStay2D(Collider2D collision)
-    {
-        //if (lastCollision = collision)
-        //{
-        //    crosshairTransform.position = collision.transform.position;
-        //}
-    }
-
 
     private void OnTriggerExit2D(Collider2D collision)
     {
         if (collision.gameObject == lastCollisionObject)
         {
-            isColliding = false;
+            crosshairTransform.DOComplete();
+            crosshairSr.DOComplete();
+
+            weakSpotMarker.SetActive(false);
         }
-
-        crosshairTransform.DOComplete();
-        sr.DOComplete();
-
-        lastCollisionObject = null;
+        
     }
 
     private void Restore()
     {
-        sr.DOColor(Color.white, duration / 2.0f);
+        crosshairSr.DOColor(Color.white, duration / 2.0f);
     }
 
 
-    //private void ToRedLooping()
-    //{
-    //    sr.DOColor(Color.red, duration / 2.0f).OnComplete(() => ToWhiteLooping());
-    //}
+    private void ToRedLooping(SpriteRenderer sr)
+    {
+        sr.DOColor(Color.red, duration / 2.0f).OnComplete(() => ToWhiteLooping(sr));
+    }
 
-    //private void ToWhiteLooping()
-    //{
-    //    sr.DOColor(Color.white, duration / 2.0f).OnComplete(() => ToRedLooping());
-    //}
+    private void ToWhiteLooping(SpriteRenderer sr)
+    {
+        sr.DOColor(Color.white, duration / 2.0f).OnComplete(() => ToRedLooping(sr));
+    }
 
+
+
+    public void Pause()
+    {
+        crosshairTransform.DOPause();
+        crosshairSr.DOPause();
+    }
+
+    public void Resume()
+    {
+        crosshairTransform.DOPlay();
+        crosshairSr.DOPlay();
+    }
 
 }
