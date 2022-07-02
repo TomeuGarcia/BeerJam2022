@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
+[RequireComponent(typeof(PlayerInputProcessor))]
 public class CharacterMovement : MonoBehaviour
 {
     public PlayerInputProcessor playerInput;
@@ -20,7 +21,7 @@ public class CharacterMovement : MonoBehaviour
     public LayerMask groundLayer;
     public bool isGrounded;
     public Transform groundCheckPoint;
-    
+    bool jumping;
     public AnimationCurve accelerationCurve;
     private void OnEnable()
     {
