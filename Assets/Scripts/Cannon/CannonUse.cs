@@ -41,10 +41,13 @@ public class CannonUse : MonoBehaviour
 
     [SerializeField] CanonAudio canonAudio;
 
+    [SerializeField] GameObject controller;
+
     private void Awake()
     {
         crosshair.SetCannonId(canonId);
 
+        controller.SetActive(false);
         //StartCoroutine(ShootLoop());
     }
 
@@ -112,7 +115,10 @@ public class CannonUse : MonoBehaviour
             isPlayerInside = true;
 
             characterMovementUser = collision.gameObject.GetComponent<CharacterMovement>();
+
+            controller.SetActive(true);
         }
+
     }
 
 
@@ -124,6 +130,8 @@ public class CannonUse : MonoBehaviour
             isPlayerInside = false;
 
             characterMovementUser = null;
+
+            controller.SetActive(false);
         }
     }
 
