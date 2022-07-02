@@ -24,18 +24,25 @@ public class Crosshair : MonoBehaviour
 
     private void OnEnable()
     {
-        CannonUse.OnPlayerDismount += () => weakSpotMarker.SetActive(false);
+        CannonUse.OnPlayerDismount += HideWeakspotMarker;
     }
 
     private void OnDisable()
     {
-        CannonUse.OnPlayerDismount -= () => weakSpotMarker.SetActive(false);
+        CannonUse.OnPlayerDismount -= HideWeakspotMarker;
     }
 
 
     public void SetCannonId(int cannonId)
     {
         this.cannonId = cannonId;
+    }
+
+    private void HideWeakspotMarker()
+    {
+        if (weakSpotMarker == null) return;
+
+        weakSpotMarker.SetActive(false);
     }
 
 
@@ -53,7 +60,6 @@ public class Crosshair : MonoBehaviour
 
             weakSpotMarker.SetActive(true);
             weakSpotMarker.transform.position = collision.gameObject.transform.position;
-            //weakSpotMarkerSr.DOColor(Color.red, duration / 2.0f).OnComplete(() => weakSpotMarkerSr.DOColor(Color.white, duration / 2.0f));
         }
     }
 

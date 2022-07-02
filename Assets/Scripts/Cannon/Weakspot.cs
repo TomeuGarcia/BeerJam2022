@@ -30,6 +30,10 @@ public class Weakspot : MonoBehaviour
 
     bool isAlive = true;
 
+    [SerializeField] AudioSource takeDamageAS;
+    [SerializeField] AudioSource noTakeDamageAS;
+
+
 
     private void Awake()
     {
@@ -61,15 +65,35 @@ public class Weakspot : MonoBehaviour
 
     public void TakeDamage(int playerId)
     {
-        if (playerId == 0 && !damagedByPlayer0)
+        if (playerId == 0)
         {
-            ++damageCountByPlayer0;
-            if (damagedByPlayer0) TurnPlayer1Color();
+            if (damagedByPlayer0)
+            {
+                PlayNoTakeDamageSound();
+            }
+            else
+            {
+                ++damageCountByPlayer0;
+                if (damagedByPlayer0) TurnPlayer1Color();
+                PlayTakeDamageSound();
+                PlayTakeDamageanimation();
+            }
+            
         }
-        else if (playerId == 1 && !damagedByPlayer1)
+        else if (playerId == 1)
         {
-            ++damageCountByPlayer1;
-            if (damagedByPlayer1) TurnPlayer0Color();
+            if (damagedByPlayer1)
+            {
+                PlayNoTakeDamageSound();
+            }
+            else
+            {
+                ++damageCountByPlayer1;
+                if (damagedByPlayer1) TurnPlayer0Color();
+                PlayTakeDamageSound();
+                PlayTakeDamageanimation();
+            }
+            
         }
 
         if (damagedByPlayer0 && damagedByPlayer1)
@@ -111,6 +135,9 @@ public class Weakspot : MonoBehaviour
             transform.DOScale(Vector3.one, 1f);
         }
 
+        sr.DOKill();
+        sr.color = startColor;
+
         damageCountByPlayer0 = damageCountByPlayer1 = 0;
     }
 
@@ -129,6 +156,25 @@ public class Weakspot : MonoBehaviour
         canBlob = false;
         yield return new WaitForSeconds(duration);
         canBlob = true;
+    }
+
+
+
+    private void PlayTakeDamageSound()
+    {
+        takeDamageAS.pitch = Random.Range(0.8f, 1.2f);
+        takeDamageAS.Play();
+    }
+
+    private void PlayNoTakeDamageSound()
+    {
+        noTakeDamageAS.pitch = Random.Range(0.8f, 1.2f);
+        noTakeDamageAS.Play();
+    }
+
+    private void PlayTakeDamageanimation()
+    {
+        sr.DOColor(Color.red, 0.2f).OnComplete(() => sr.DOColor(startColor, 0.2f));
     }
 
 
