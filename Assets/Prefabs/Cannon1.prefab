@@ -1093,7 +1093,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &5368948219899274724
 Transform:
   m_ObjectHideFlags: 0
@@ -1284,8 +1284,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   referenceTransform: {fileID: 5368948220538970006}
-  crosshairTransform: {fileID: 5368948219899274724}
-  crosshairSr: {fileID: 5368948219899274714}
   duration: 0.5
   weakSpotMarker: {fileID: 5368948218696803499}
 --- !u!50 &5368948220025861252
@@ -1718,7 +1716,8 @@ PrefabInstance:
       propertyPath: m_SortingOrder
       value: -1
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: -5102922969318770766, guid: c45ff361234baa94c9f9d4d46ef33138, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: c45ff361234baa94c9f9d4d46ef33138, type: 3}
 --- !u!4 &8903661604174805484 stripped
 Transform:
