@@ -43,6 +43,7 @@ public class CannonUse : MonoBehaviour
     [SerializeField] CanonAudio canonAudio;
 
     [SerializeField] GameObject controller;
+    [SerializeField] GameObject controllerWhenUsing;
 
     [SerializeField] CinemachineVirtualCamera canonVirtualCamera;
 
@@ -52,6 +53,7 @@ public class CannonUse : MonoBehaviour
         crosshair.SetCannonId(canonId);
 
         controller.SetActive(false);
+        controllerWhenUsing.SetActive(false);
         //StartCoroutine(ShootLoop());
     }
 
@@ -192,6 +194,9 @@ public class CannonUse : MonoBehaviour
         if (OnPlayerMount != null) OnPlayerMount();
 
         canonAudio.PlayCanonMovingSound();
+
+        controller.SetActive(false);
+        controllerWhenUsing.SetActive(true);
     }
 
     private void DeactivateCanon()
@@ -205,6 +210,9 @@ public class CannonUse : MonoBehaviour
         canonAudio.PauseCanonMovingSound();
 
         bulletAmountText.text = "";
+
+        controller.SetActive(true);
+        controllerWhenUsing.SetActive(false);
     }
 
     public void SetBulletAmount(int bulletAmount)
