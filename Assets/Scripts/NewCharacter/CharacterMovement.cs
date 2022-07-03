@@ -26,9 +26,13 @@ public class CharacterMovement : MonoBehaviour
     public AnimationCurve accelerationCurve;
     public float MovementDir;
     public bool falling;
+
+    [SerializeField] PlayerSounds playerSounds;
+    float previousInputX = 0f;
+
     private void OnEnable()
     {
-        playerInput.OnJumpAction += OnJump;  
+        playerInput.OnJumpAction += OnJump;
     }
 
     public void OnDisable()
@@ -42,6 +46,7 @@ public class CharacterMovement : MonoBehaviour
         {
             rb.AddForce(Vector2.up * jumpSpeed, ForceMode2D.Impulse);
             animation.Jump();
+            playerSounds.PlayJumpingSound();
         }
     }
     // Start is called before the first frame update
@@ -57,6 +62,13 @@ public class CharacterMovement : MonoBehaviour
 
     private void DoForceMovement()
     {
+        float currentInputXAbs = Mathf.Abs(playerInput.movementAxis.x);
+        if (previousInputX < 0.5f && currentInputXAbs > 0.5f)
+        {
+            playerSounds.PlayWalkingSound();
+        }
+        previousInputX = currentInputXAbs;
+
 
         float targetSpeed = playerInput.movementAxis.x * maxSpeed;
         float speedDif = targetSpeed - rb.velocity.x;
@@ -70,6 +82,7 @@ public class CharacterMovement : MonoBehaviour
             float amount = Mathf.Min(Mathf.Abs(rb.velocity.x), Mathf.Abs(frictionAmount));
             amount *= Mathf.Sign(rb.velocity.x);
             rb.AddForce(Vector2.right * -amount, ForceMode2D.Impulse);
+            playerSounds.StopWalkingSound();
         }
     }
 
@@ -84,4 +97,17 @@ public class CharacterMovement : MonoBehaviour
             isGrounded = false;
         }
     }
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if(collision.gameObject.layer == LayerMask.NameToLayer("Ground") || collision.gameObject.layer == LayerMask.NameToLayer("weakSpot"))
+        {
+            CheckCollision();
+            if (isGrounded)
+            {
+                playerSounds.PlayLandingSound();
+            }
+        }
+    }
+
+
 }
