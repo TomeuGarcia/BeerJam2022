@@ -7,8 +7,10 @@ public class GrappleAbility : MonoBehaviour
     public LayerMask grappleLayer;
     public bool grappling = false;
     Collider2D grappleObject = null;
-    public Collider2D rotatorCollision;
     public GameObject grappleMarker;
+
+    [SerializeField] PlayerSounds playerSounds;
+
     private void OnEnable()
     {
         playerInput = GetComponent<PlayerInputProcessor>();
@@ -21,10 +23,9 @@ public class GrappleAbility : MonoBehaviour
 
     private void Update()
     {
-        rotatorCollision.transform.rotation = Quaternion.LookRotation(Vector3.forward, playerInput.movementAxis);
         if (grappling)
             return;
-        GetPossibleObjects();
+        if(GetPossibleObjects());
     }
 
     public void GrappleAction()
@@ -43,11 +44,13 @@ public class GrappleAbility : MonoBehaviour
 
     void Grapple()
     {
-        
+        if (grappleObject == null)
+            return;
         grappleObject.GetComponent<GrappleObject>().Consume();
         SpringJoint2D joint = grappleObject.GetComponent<SpringJoint2D>();
         joint.connectedBody = GetComponent<Rigidbody2D>();
         grappling = true;
+        playerSounds.PlayAbilitySound();
     }
 
     private bool GetPossibleObjects()
@@ -63,6 +66,7 @@ public class GrappleAbility : MonoBehaviour
         for (int i = 0; i < grappleObjects.Length; i++)
         {
             var currentDistance = Vector2.Distance(transform.position, grappleObjects[i].transform.position);
+
             if (currentDistance < distance && !grappleObjects[i].GetComponent<GrappleObject>().consumed)
             {
                 grappleMarker.GetComponent<SpriteRenderer>().color = Color.white;
@@ -73,6 +77,16 @@ public class GrappleAbility : MonoBehaviour
             }
         }
 
+        if (grappleObject == null)
+            return false;
+        var direction = (grappleObject.transform.position - transform.position);
+        RaycastHit2D raycast = Physics2D.Raycast(transform.position, direction);
+        Debug.DrawRay(transform.position, direction);
+        if (raycast.collider.gameObject != grappleObject.gameObject)
+        {
+            grappleObject = null;
+            grappleMarker.GetComponent<SpriteRenderer>().color = Color.clear;
+        }
         return false;
     }
 
@@ -81,6 +95,8 @@ public class GrappleAbility : MonoBehaviour
         SpringJoint2D joint = grappleObject.GetComponent<SpringJoint2D>();
         joint.connectedBody = null;
         grappling = false;
+        grappleObject = null;
+        grappleMarker.GetComponent<SpriteRenderer>().color = Color.clear;
     }
 
 }
