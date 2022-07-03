@@ -19,7 +19,7 @@ public class Weakspot : MonoBehaviour
     bool damagedByPlayer0 => damageCountByPlayer0 >= maxDamage;
     bool damagedByPlayer1 => damageCountByPlayer1 >= maxDamage;
 
-    float colorLoopDuration = 1.0f;
+    float colorLoopDuration = 2.0f;
 
     [SerializeField] float blobCooldownDuration = 1.0f;
     bool canBlob = false;
