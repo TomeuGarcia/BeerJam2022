@@ -32,4 +32,8 @@ public class CharacterAnimation : MonoBehaviour
     {
         animator.SetTrigger("Punch");
     }
+    public void Grapple(bool grapple)
+    {
+        animator.SetBool("Grappling", grapple);
+    }
 }
