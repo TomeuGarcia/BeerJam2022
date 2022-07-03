@@ -205,63 +205,6 @@ Transform:
   m_Father: {fileID: 1956933545}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 179.116}
---- !u!1 &54172047
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 54172048}
-  - component: {fileID: 54172049}
-  m_Layer: 0
-  m_Name: Apuntador
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &54172048
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 54172047}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 534475653}
-  m_RootOrder: 2
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!61 &54172049
-BoxCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 54172047}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: -0.1659851, y: 9.130253}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0, y: 0}
-    oldSize: {x: 0, y: 0}
-    newSize: {x: 0, y: 0}
-    adaptiveTilingThreshold: 0
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 22.57782, y: 18.26461}
-  m_EdgeRadius: 0
 --- !u!1 &62966656
 GameObject:
   m_ObjectHideFlags: 0
@@ -4398,12 +4341,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a7c62117ae2df30468e63d20d526cdf3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  radius: 20
+  radius: 15
   grappleLayer:
     serializedVersion: 2
     m_Bits: 2048
   grappling: 0
-  rotatorCollision: {fileID: 54172049}
   grappleMarker: {fileID: 1693071773}
 --- !u!1001 &352357964
 PrefabInstance:
@@ -4703,7 +4645,7 @@ Camera:
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 3575
+    m_Bits: 7671
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
@@ -5397,7 +5339,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5a92ba85c2d7acb42b69618d47480ca9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  consumeTime: 5
+  consumeTime: 3
   consumed: 0
 --- !u!1 &492279033
 GameObject:
@@ -7580,7 +7522,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5a92ba85c2d7acb42b69618d47480ca9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  consumeTime: 5
+  consumeTime: 3
   consumed: 0
 --- !u!58 &656527401
 CircleCollider2D:
@@ -8397,7 +8339,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5a92ba85c2d7acb42b69618d47480ca9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  consumeTime: 5
+  consumeTime: 3
   consumed: 0
 --- !u!1 &687140181
 GameObject:
@@ -10706,7 +10648,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5a92ba85c2d7acb42b69618d47480ca9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  consumeTime: 5
+  consumeTime: 3
   consumed: 0
 --- !u!1001 &890976100
 PrefabInstance:
@@ -11516,7 +11458,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5a92ba85c2d7acb42b69618d47480ca9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  consumeTime: 5
+  consumeTime: 3
   consumed: 0
 --- !u!1001 &959644754
 PrefabInstance:
@@ -11751,7 +11693,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5a92ba85c2d7acb42b69618d47480ca9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  consumeTime: 5
+  consumeTime: 3
   consumed: 0
 --- !u!95 &973957314
 Animator:
@@ -12756,7 +12698,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5a92ba85c2d7acb42b69618d47480ca9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  consumeTime: 5
+  consumeTime: 3
   consumed: 0
 --- !u!4 &1070339558 stripped
 Transform:
@@ -13225,7 +13167,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5a92ba85c2d7acb42b69618d47480ca9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  consumeTime: 5
+  consumeTime: 3
   consumed: 0
 --- !u!1 &1168717963
 GameObject:
@@ -14259,7 +14201,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5a92ba85c2d7acb42b69618d47480ca9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  consumeTime: 5
+  consumeTime: 3
   consumed: 0
 --- !u!1001 &1263939468
 PrefabInstance:
@@ -14370,7 +14312,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5a92ba85c2d7acb42b69618d47480ca9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  consumeTime: 5
+  consumeTime: 3
   consumed: 0
 --- !u!58 &1264995748
 CircleCollider2D:
@@ -15165,7 +15107,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5a92ba85c2d7acb42b69618d47480ca9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  consumeTime: 5
+  consumeTime: 3
   consumed: 0
 --- !u!58 &1452961273
 CircleCollider2D:
@@ -15824,6 +15766,14 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8480329596499176639, guid: f27ea6eed5ce52543bdc184d2cd419fd, type: 3}
+      propertyPath: m_RootOrder
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 9184690442333568908, guid: f27ea6eed5ce52543bdc184d2cd419fd, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f27ea6eed5ce52543bdc184d2cd419fd, type: 3}
 --- !u!1001 &1563804780
@@ -16440,7 +16390,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5a92ba85c2d7acb42b69618d47480ca9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  consumeTime: 5
+  consumeTime: 3
   consumed: 0
 --- !u!1001 &1664266550
 PrefabInstance:
@@ -17142,7 +17092,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5a92ba85c2d7acb42b69618d47480ca9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  consumeTime: 5
+  consumeTime: 3
   consumed: 0
 --- !u!1 &1810326986
 GameObject:
@@ -18206,7 +18156,7 @@ Camera:
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 3063
+    m_Bits: 7159
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
@@ -20429,7 +20379,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5a92ba85c2d7acb42b69618d47480ca9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  consumeTime: 5
+  consumeTime: 3
   consumed: 0
 --- !u!1 &2142932882
 GameObject:
