@@ -172,6 +172,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bottleTransform: {fileID: 1241839377710708407}
+  endGameHUD: {fileID: 602060970909497649, guid: e2c0f4135c9a0354295f5f5472476db1, type: 3}
 --- !u!1 &1056875673260310726
 GameObject:
   m_ObjectHideFlags: 0
