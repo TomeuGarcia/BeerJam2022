@@ -141,8 +141,8 @@ TextureImporter:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 568
-        height: 489
+        width: 563
+        height: 459
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -160,10 +160,10 @@ TextureImporter:
       name: Grap_1
       rect:
         serializedVersion: 2
-        x: 568
+        x: 563
         y: 0
-        width: 568
-        height: 489
+        width: 563
+        height: 459
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -181,10 +181,10 @@ TextureImporter:
       name: Grap_2
       rect:
         serializedVersion: 2
-        x: 1136
+        x: 1126
         y: 0
-        width: 568
-        height: 489
+        width: 563
+        height: 459
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
