@@ -65,7 +65,7 @@ public class CharacterMovement : MonoBehaviour
         float currentInputXAbs = Mathf.Abs(playerInput.movementAxis.x);
         if (previousInputX < 0.5f && currentInputXAbs > 0.5f)
         {
-            playerSounds.PlayWalkingSound();
+            //playerSounds.PlayWalkingSound();
         }
         previousInputX = currentInputXAbs;
 
