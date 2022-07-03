@@ -7,12 +7,12 @@ using DG.Tweening;
 public class GameFinish : MonoBehaviour
 {
     [SerializeField] Transform bottleTransform;
-    [SerializeField] EndGa endGameHUD;
+    [SerializeField] GameObject endGameHUD;
 
-    private void Awake()
-    {
-        LoadEndScene();
-    }
+    //private void Awake()
+    //{
+    //    LoadEndScene();
+    //}
 
     private void OnEnable()
     {
