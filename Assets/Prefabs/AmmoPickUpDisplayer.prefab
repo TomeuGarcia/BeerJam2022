@@ -218,6 +218,7 @@ MonoBehaviour:
   movingTransform: {fileID: 8237363933290818790}
   sr: {fileID: 5875891409527955814}
   text: {fileID: 8237363932955362011}
+  textObject: {fileID: 8237363932955362010}
 --- !u!1001 &8237363933724772598
 PrefabInstance:
   m_ObjectHideFlags: 0
