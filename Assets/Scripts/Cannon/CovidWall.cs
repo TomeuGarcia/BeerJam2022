@@ -79,7 +79,7 @@ public class CovidWall : MonoBehaviour
     {
         if (OnDeathEnd != null) OnDeathEnd();
 
-        gameObject.SetActive(false);
+        //gameObject.SetActive(false);
     }
 
 
