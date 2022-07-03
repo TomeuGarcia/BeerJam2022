@@ -105,12 +105,12 @@ public class Weakspot : MonoBehaviour
 
     private void TurnPlayer0Color()
     {
-        sr.DOColor(player0Color, colorLoopDuration).OnComplete(() => sr.DOColor(startColor, colorLoopDuration).OnComplete(() => TurnPlayer0Color()));
+        sr.DOColor(player0Color, colorLoopDuration).OnComplete(() => sr.DOColor(startColor, colorLoopDuration/2f).OnComplete(() => TurnPlayer0Color()));
     }
 
     private void TurnPlayer1Color()
     {
-        sr.DOColor(player1Color, colorLoopDuration).OnComplete(() => sr.DOColor(startColor, colorLoopDuration).OnComplete(() => TurnPlayer1Color()));
+        sr.DOColor(player1Color, colorLoopDuration).OnComplete(() => sr.DOColor(startColor, colorLoopDuration/2f).OnComplete(() => TurnPlayer1Color()));
     }
 
 
