@@ -8,6 +8,9 @@ public class GrappleAbility : MonoBehaviour
     public bool grappling = false;
     Collider2D grappleObject = null;
     public GameObject grappleMarker;
+    public CharacterAnimation characterAnim;
+    public LineRenderer line;
+    public Transform hand;
     private void OnEnable()
     {
         playerInput = GetComponent<PlayerInputProcessor>();
@@ -21,7 +24,18 @@ public class GrappleAbility : MonoBehaviour
     private void Update()
     {
         if (grappling)
+        {
+            line.enabled = true;
+            line.SetPosition(0, hand.position);
+            line.SetPosition(1, grappleObject.transform.position);
             return;
+
+        }
+        else
+        {
+            line.enabled = false;
+        }
+
         if(GetPossibleObjects());
     }
 
@@ -47,6 +61,7 @@ public class GrappleAbility : MonoBehaviour
         SpringJoint2D joint = grappleObject.GetComponent<SpringJoint2D>();
         joint.connectedBody = GetComponent<Rigidbody2D>();
         grappling = true;
+        characterAnim.SetGrapple(true);
     }
 
     private bool GetPossibleObjects()
@@ -93,6 +108,8 @@ public class GrappleAbility : MonoBehaviour
         grappling = false;
         grappleObject = null;
         grappleMarker.GetComponent<SpriteRenderer>().color = Color.clear;
+        characterAnim.SetGrapple(false);
+        
     }
 
 }

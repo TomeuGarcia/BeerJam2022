@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -21,6 +22,12 @@ public class CharacterAnimation : MonoBehaviour
 
         if (Mathf.Abs(player.playerInput.movementAxis.x) > 0.1f)
         GraphicsRoot.localScale = new Vector3(Mathf.Sign(player.playerInput.movementAxis.x),1,1);
+        
+    }
+
+    private void FixedUpdate()
+    {
+        animator.SetBool("Grounded", player.isGrounded);
     }
 
     public void Jump()
@@ -31,5 +38,10 @@ public class CharacterAnimation : MonoBehaviour
     public void Punch()
     {
         animator.SetTrigger("Punch");
+    }
+
+    public void SetGrapple(bool grapp)
+    {
+        animator.SetBool("Grappling", grapp);
     }
 }

@@ -52,6 +52,7 @@ public class CharacterMovement : MonoBehaviour
         CheckCollision();
         DoForceMovement();
         falling = rb.velocity.y < 0;
+        rb.gravityScale = falling ? 6 : 4;
     }
 
 
