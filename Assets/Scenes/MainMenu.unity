@@ -1108,6 +1108,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 1643200652}
+        m_TargetAssemblyTypeName: MusicPlay, Assembly-CSharp
+        m_MethodName: TransitionToGameMusic
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!95 &1337572270
 Animator:
   serializedVersion: 3
@@ -1773,6 +1785,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 455755715a95855499aaaab0251f0bad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _audioSource: {fileID: 1643200650}
+  menuMusic: {fileID: 8300000, guid: a7a47745a76d1c54b8b253058613a95c, type: 3}
+  gameMusic: {fileID: 8300000, guid: ab73abeae0a097944849693997c70e38, type: 3}
 --- !u!1 &1676475296
 GameObject:
   m_ObjectHideFlags: 0
