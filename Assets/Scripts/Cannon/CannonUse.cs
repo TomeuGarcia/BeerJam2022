@@ -30,7 +30,7 @@ public class CannonUse : MonoBehaviour
 
     [SerializeField] Transform bulletAmountTransform;
     [SerializeField] TextMeshPro bulletAmountText;
-    [SerializeField] int bulletAmount = 40;
+    [SerializeField] int bulletAmount = 0;
     int currentBulletAmount;
 
     public delegate void CanonAction();
@@ -113,6 +113,8 @@ public class CannonUse : MonoBehaviour
         {
             gamepadId = collision.gameObject.GetComponent<PlayerInputProcessor>().gamepadId;
             isPlayerInside = true;
+
+            bulletAmount = collision.gameObject.GetComponentInChildren<PickUpCollector>().pickUpCounter;
 
             characterMovementUser = collision.gameObject.GetComponent<CharacterMovement>();
 
