@@ -9,6 +9,7 @@ public class CharacterMovement : MonoBehaviour
 {
     public PlayerInputProcessor playerInput;
     public Rigidbody2D rb;
+    public CharacterAnimation animation;
     public float maxSpeed;
     public float runAccel;
     public float runDecel;
@@ -23,6 +24,8 @@ public class CharacterMovement : MonoBehaviour
     public Transform groundCheckPoint;
     bool jumping;
     public AnimationCurve accelerationCurve;
+    public float MovementDir;
+    public bool falling;
     private void OnEnable()
     {
         playerInput.OnJumpAction += OnJump;  
@@ -38,6 +41,7 @@ public class CharacterMovement : MonoBehaviour
         if (isGrounded)
         {
             rb.AddForce(Vector2.up * jumpSpeed, ForceMode2D.Impulse);
+            animation.Jump();
         }
     }
     // Start is called before the first frame update
@@ -47,6 +51,7 @@ public class CharacterMovement : MonoBehaviour
     {   
         CheckCollision();
         DoForceMovement();
+        falling = rb.velocity.y < 0;
     }
 
 
@@ -59,7 +64,7 @@ public class CharacterMovement : MonoBehaviour
         float accelRate = (Mathf.Abs(targetSpeed) > 0.01f) ? runAccel : runDecel;
         float movement = Mathf.Pow(Mathf.Abs(speedDif) * accelRate, velPower) * Mathf.Sign(speedDif);
         rb.AddForce(movement * Vector2.right);
-
+        MovementDir = movement;
         if (lastGroundedTime > 0 && Mathf.Abs(playerInput.movementAxis.x) < 0.01f)
         {
             float amount = Mathf.Min(Mathf.Abs(rb.velocity.x), Mathf.Abs(frictionAmount));

@@ -4,9 +4,11 @@ using UnityEngine;
 
 public class DestroyAudio : MonoBehaviour
 {
+    [SerializeField] AudioSource audio;
+
     void Start()
     {
-        Destroy(gameObject, 3f);
+        Destroy(audio, 3f);
     }
 
 }

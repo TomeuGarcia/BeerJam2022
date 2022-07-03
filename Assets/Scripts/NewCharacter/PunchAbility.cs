@@ -9,6 +9,7 @@ public class PunchAbility : MonoBehaviour
     private PlayerInputProcessor playerInput;
     public float radius;
     public LayerMask punchableLayer;
+    public CharacterAnimation anim;
 
     private void OnEnable()
     {
@@ -22,6 +23,7 @@ public class PunchAbility : MonoBehaviour
 
     void Punch()
     {
+        anim.Punch();
         Collider2D punchHit = Physics2D.OverlapCircle(transform.position, radius, punchableLayer);
         if (punchHit == null)
         {
