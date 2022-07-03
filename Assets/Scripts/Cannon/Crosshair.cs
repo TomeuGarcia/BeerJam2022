@@ -6,8 +6,8 @@ using DG.Tweening;
 public class Crosshair : MonoBehaviour
 {
     [SerializeField] Transform referenceTransform;
-    [SerializeField] Transform crosshairTransform;
-    [SerializeField] SpriteRenderer crosshairSr;
+    //[SerializeField] Transform crosshairTransform;
+    //[SerializeField] SpriteRenderer crosshairSr;
     [SerializeField] float duration = 0.5f;
 
     [SerializeField] GameObject weakSpotMarker;
@@ -55,8 +55,8 @@ public class Crosshair : MonoBehaviour
 
             lastCollisionObject = collision.gameObject;
 
-            crosshairTransform.DOPunchScale(new Vector3(0.2f, 0.2f, 0f), duration, 10, 1);
-            crosshairSr.DOColor(Color.red, duration / 2.0f).OnComplete(() => Restore());
+            //crosshairTransform.DOPunchScale(new Vector3(0.2f, 0.2f, 0f), duration, 2, 1);
+            //crosshairSr.DOColor(Color.red, duration / 2.0f).OnComplete(() => Restore());
 
             weakSpotMarker.SetActive(true);
             weakSpotMarker.transform.position = collision.gameObject.transform.position;
@@ -67,8 +67,8 @@ public class Crosshair : MonoBehaviour
     {
         if (collision.gameObject == lastCollisionObject)
         {
-            crosshairTransform.DOComplete();
-            crosshairSr.DOComplete();
+            //crosshairTransform.DOComplete();
+            //crosshairSr.DOComplete();
 
             weakSpotMarker.SetActive(false);
         }
@@ -77,7 +77,7 @@ public class Crosshair : MonoBehaviour
 
     private void Restore()
     {
-        crosshairSr.DOColor(Color.white, duration / 2.0f);
+        //crosshairSr.DOColor(Color.white, duration / 2.0f);
     }
 
 
@@ -95,14 +95,14 @@ public class Crosshair : MonoBehaviour
 
     public void Pause()
     {
-        crosshairTransform.DOPause();
-        crosshairSr.DOPause();
+        //crosshairTransform.DOPause();
+        //crosshairSr.DOPause();
     }
 
     public void Resume()
     {
-        crosshairTransform.DOPlay();
-        crosshairSr.DOPlay();
+        //crosshairTransform.DOPlay();
+        //crosshairSr.DOPlay();
     }
 
 }

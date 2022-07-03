@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class PickUpCollector : MonoBehaviour
 {
+    [SerializeField] Transform displayerReference;
+    [SerializeField] AmmoPickUpDisplay ammoPickUpDisplayer;
     public int pickUpCounter { get; private set; }
 
 
@@ -16,8 +18,12 @@ public class PickUpCollector : MonoBehaviour
     {
         if (collision.gameObject.layer == LayerMask.NameToLayer("PickUp"))
         {
-            pickUpCounter += collision.gameObject.GetComponent<PickUp>().Collect();
+            int amount = collision.gameObject.GetComponent<PickUp>().Collect();
+            Instantiate(ammoPickUpDisplayer).StartAnimation(amount, displayerReference.position);
+            pickUpCounter += amount;
         }
     }
+
+
 
 }

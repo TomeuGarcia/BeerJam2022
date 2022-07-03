@@ -25,6 +25,7 @@ public class ScreenFader : MonoBehaviour
     public void DoFadeOutToScene()
     {
         StartCoroutine(FadeOut());
+        
     }
 
     IEnumerator FadeIn(int sceneindex)
