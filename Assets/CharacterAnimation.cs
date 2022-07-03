@@ -27,4 +27,9 @@ public class CharacterAnimation : MonoBehaviour
     {
         animator.SetTrigger("Jump");
     }
+
+    public void Punch()
+    {
+        animator.SetTrigger("Punch");
+    }
 }
