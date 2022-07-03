@@ -8,6 +8,11 @@ public class CannonBullet : MonoBehaviour
 {
     int playerId;
 
+    private void Awake()
+    {
+        StartCoroutine(Die());
+    }
+
     public void SetPlayerId(int playerId)
     {
         this.playerId = playerId;
@@ -44,4 +49,12 @@ public class CannonBullet : MonoBehaviour
         transform.DOPunchScale(new Vector3(-0.2f, -0.2f, 0f), 0.2f).OnComplete(() => Destroy(gameObject));
     }
 
+
+
+    private IEnumerator Die()
+    {
+        yield return new WaitForSeconds(3f);
+
+        Destroy(gameObject);
+    }
 }

@@ -8,6 +8,9 @@ public class GrappleAbility : MonoBehaviour
     public bool grappling = false;
     Collider2D grappleObject = null;
     public GameObject grappleMarker;
+
+    [SerializeField] PlayerSounds playerSounds;
+
     private void OnEnable()
     {
         playerInput = GetComponent<PlayerInputProcessor>();
@@ -47,6 +50,7 @@ public class GrappleAbility : MonoBehaviour
         SpringJoint2D joint = grappleObject.GetComponent<SpringJoint2D>();
         joint.connectedBody = GetComponent<Rigidbody2D>();
         grappling = true;
+        playerSounds.PlayAbilitySound();
     }
 
     private bool GetPossibleObjects()
