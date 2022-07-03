@@ -872,9 +872,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rotatingTransform: {fileID: 7726806743705385923}
-  minRotation: -20
-  maxRotation: 20
-  duration: 3
+  minRotation: -25
+  maxRotation: 25
+  duration: 4
 --- !u!1 &7726806744055753597
 GameObject:
   m_ObjectHideFlags: 0
