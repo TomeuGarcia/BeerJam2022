@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using DG.Tweening;
 using TMPro;
+using Cinemachine;
 
 
 public class CannonUse : MonoBehaviour
@@ -42,6 +43,9 @@ public class CannonUse : MonoBehaviour
     [SerializeField] CanonAudio canonAudio;
 
     [SerializeField] GameObject controller;
+
+    [SerializeField] CinemachineVirtualCamera canonVirtualCamera;
+
 
     private void Awake()
     {
@@ -119,6 +123,8 @@ public class CannonUse : MonoBehaviour
             characterMovementUser = collision.gameObject.GetComponent<CharacterMovement>();
 
             controller.SetActive(true);
+
+            UseCanonCamera();
         }
 
     }
@@ -134,6 +140,8 @@ public class CannonUse : MonoBehaviour
             characterMovementUser = null;
 
             controller.SetActive(false);
+
+            UseNormalCamera();
         }
     }
 
@@ -233,6 +241,17 @@ public class CannonUse : MonoBehaviour
     private void SetTextMatchCurrentBulletAmount()
     {
         bulletAmountText.text = currentBulletAmount.ToString();
+    }
+
+
+    private void UseCanonCamera()
+    {
+        canonVirtualCamera.Priority = 20;
+    }
+
+    private void UseNormalCamera()
+    {
+        canonVirtualCamera.Priority = 0;
     }
 
 }

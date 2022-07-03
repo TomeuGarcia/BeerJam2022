@@ -11,6 +11,8 @@ public class PunchAbility : MonoBehaviour
     public LayerMask punchableLayer;
     public CharacterAnimation anim;
 
+    [SerializeField] PlayerSounds playerSounds;
+
     private void OnEnable()
     {
         playerInput = GetComponent<PlayerInputProcessor>();
@@ -24,6 +26,7 @@ public class PunchAbility : MonoBehaviour
     void Punch()
     {
         anim.Punch();
+        playerSounds.PlayAbilitySound();
         Collider2D punchHit = Physics2D.OverlapCircle(transform.position, radius, punchableLayer);
         if (punchHit == null)
         {
