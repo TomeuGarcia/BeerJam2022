@@ -55,7 +55,7 @@ public class Crosshair : MonoBehaviour
 
             lastCollisionObject = collision.gameObject;
 
-            crosshairTransform.DOPunchScale(new Vector3(0.2f, 0.2f, 0f), duration, 10, 1);
+            crosshairTransform.DOPunchScale(new Vector3(0.2f, 0.2f, 0f), duration, 2, 1);
             crosshairSr.DOColor(Color.red, duration / 2.0f).OnComplete(() => Restore());
 
             weakSpotMarker.SetActive(true);
