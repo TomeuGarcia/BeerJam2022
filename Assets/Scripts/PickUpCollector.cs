@@ -6,7 +6,12 @@ public class PickUpCollector : MonoBehaviour
 {
     [SerializeField] Transform displayerReference;
     [SerializeField] AmmoPickUpDisplay ammoPickUpDisplayer;
+    [SerializeField] int playerId = 0;
     public int pickUpCounter { get; private set; }
+
+    public delegate void PickUpCollectorAction(int playerId, int ammoAmount);
+    public static event PickUpCollectorAction OnPickUp;
+
 
 
     private void Awake()
@@ -21,8 +26,12 @@ public class PickUpCollector : MonoBehaviour
             int amount = collision.gameObject.GetComponent<PickUp>().Collect();
             Instantiate(ammoPickUpDisplayer).StartAnimation(amount, displayerReference.position);
             pickUpCounter += amount;
+
+            if (OnPickUp != null) OnPickUp(playerId, pickUpCounter);
         }
     }
+
+
 
 
 

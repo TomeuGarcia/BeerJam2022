@@ -15,24 +15,31 @@ public class PauseMenu : MonoBehaviour
 
     private void Update()
     {
-        if (Gamepad.all[gamepadId0].startButton.wasPressedThisFrame || Gamepad.all[gamepadId1].startButton.wasPressedThisFrame && isPaused == false)
+        if (Gamepad.all[gamepadId0].startButton.wasPressedThisFrame || Gamepad.all[gamepadId1].startButton.wasPressedThisFrame)
         {
-            pauseMenu.SetActive(true);
-            Time.timeScale = 0f;
-            isPaused = true;
+            if (isPaused)
+            {
+                pauseMenu.SetActive(false);
+                Time.timeScale = 1f;
+                isPaused = false;
+            }
+            else
+            {
+                Resume();
+            }
         }
+    }
 
-        if (Gamepad.all[gamepadId0].startButton.wasPressedThisFrame || Gamepad.all[gamepadId1].startButton.wasPressedThisFrame && isPaused)
-        {
-            pauseMenu.SetActive(false);
-            Time.timeScale = 1f;
-            isPaused = false;
-        }
+    public void Resume()
+    {
+        pauseMenu.SetActive(true);
+        Time.timeScale = 0f;
+        isPaused = true;
+    }
 
-        if (Gamepad.all[gamepadId0].selectButton.wasPressedThisFrame || Gamepad.all[gamepadId1].selectButton.wasPressedThisFrame && isPaused)
-        {
-            Time.timeScale = 1f;
-            SceneManager.LoadScene(1);
-        }
+    public void Home()
+    {
+        Time.timeScale = 1f;
+        SceneManager.LoadScene(1);
     }
 }

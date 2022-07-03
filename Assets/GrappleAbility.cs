@@ -3,12 +3,14 @@ using UnityEngine;
 public class GrappleAbility : MonoBehaviour
 {
     private PlayerInputProcessor playerInput;
+    public CharacterAnimation anim;
     public float radius;
     public LayerMask grappleLayer;
     public bool grappling = false;
     Collider2D grappleObject = null;
     public GameObject grappleMarker;
-
+    public LineRenderer line;
+    public Transform hand;
     [SerializeField] PlayerSounds playerSounds;
 
     private void OnEnable()
@@ -24,7 +26,17 @@ public class GrappleAbility : MonoBehaviour
     private void Update()
     {
         if (grappling)
+        {
+            line.enabled = true;
+            line.SetPosition(0, hand.position);
+            line.SetPosition(1,  grappleObject.transform.position);
             return;
+
+        }
+        else
+        {
+            line.enabled = false;
+        }
         if(GetPossibleObjects());
     }
 
@@ -33,11 +45,12 @@ public class GrappleAbility : MonoBehaviour
         Debug.Log("Grappling");
         if (grappling)
         {
+            anim.Grapple(false);
             Ungrapple();
         }
         else
         {
-            
+   
             Grapple();
         }
     }
@@ -51,6 +64,7 @@ public class GrappleAbility : MonoBehaviour
         joint.connectedBody = GetComponent<Rigidbody2D>();
         grappling = true;
         playerSounds.PlayAbilitySound();
+        anim.Grapple(true);
     }
 
     private bool GetPossibleObjects()
