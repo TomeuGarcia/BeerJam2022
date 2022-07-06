@@ -12,8 +12,6 @@ public class AmmoPickUpDisplay : MonoBehaviour
     [SerializeField] SpriteRenderer sr;
     [SerializeField] TextMeshPro text;
 
-    [SerializeField] GameObject textObject;
-
 
     public void StartAnimation(int ammoAmount, Vector3 startPosition)
     {
@@ -30,13 +28,16 @@ public class AmmoPickUpDisplay : MonoBehaviour
     {
         yield return new WaitForSeconds(2f);
 
-        sr.DOFade(0f, 2f).OnComplete(() => End());
+        sr.DOFade(0f, 2f);
+
+        yield return new WaitForSeconds(1f);
+
+        End();
     }
 
 
     private void End()
     {
-        Destroy(textObject);
         Destroy(gameObject);
     }
 
