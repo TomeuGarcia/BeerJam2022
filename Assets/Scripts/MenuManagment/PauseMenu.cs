@@ -7,39 +7,55 @@ using UnityEngine.SceneManagement;
 public class PauseMenu : MonoBehaviour
 {
     [SerializeField] GameObject pauseMenu;
-    public int gamepadId0;
-    public int gamepadId1;
+    public int gamepadId0 = 0;
+    public int gamepadId1 = 1;
 
     private bool isPaused = false;
+
+    private void Awake()
+    {
+        pauseMenu.SetActive(false);
+    }
 
 
     private void Update()
     {
-        if (Gamepad.all.Count > 0 && (Gamepad.all[gamepadId0].startButton.wasPressedThisFrame || Gamepad.all[gamepadId1].startButton.wasPressedThisFrame))
+        if ((Gamepad.all.Count > 0 && (Gamepad.all[gamepadId0].startButton.wasPressedThisFrame || Gamepad.all[gamepadId1].startButton.wasPressedThisFrame)) ||
+            Keyboard.current.escapeKey.wasPressedThisFrame)
         {
             if (isPaused)
             {
-                pauseMenu.SetActive(false);
-                Time.timeScale = 1f;
-                isPaused = false;
+                Resume();
             }
             else
             {
-                Resume();
+                Pause();
             }
         }
     }
 
-    public void Resume()
+    private void Pause()
     {
         pauseMenu.SetActive(true);
         Time.timeScale = 0f;
         isPaused = true;
     }
 
+    public void Resume()
+    {
+        Time.timeScale = 1f;
+        isPaused = false;
+        pauseMenu.SetActive(false);
+    }
+
     public void Home()
     {
         Time.timeScale = 1f;
         SceneManager.LoadScene(1);
+    }
+
+    public void ExitGame()
+    {
+        Application.Quit();
     }
 }
