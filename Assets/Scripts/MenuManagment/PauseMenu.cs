@@ -15,7 +15,7 @@ public class PauseMenu : MonoBehaviour
 
     private void Update()
     {
-        if (Gamepad.all[gamepadId0].startButton.wasPressedThisFrame || Gamepad.all[gamepadId1].startButton.wasPressedThisFrame)
+        if (Gamepad.all.Count > 0 && (Gamepad.all[gamepadId0].startButton.wasPressedThisFrame || Gamepad.all[gamepadId1].startButton.wasPressedThisFrame))
         {
             if (isPaused)
             {

@@ -22,6 +22,7 @@ public class CannonUse : MonoBehaviour
     float cannonShotCooldown = 0.2f;
 
     CharacterMovement characterMovementUser;
+    PlayerInputProcessor playerInputProcessorUser;
 
     int gamepadId = -1;
     bool isInUse = false;
@@ -52,6 +53,8 @@ public class CannonUse : MonoBehaviour
     {
         crosshair.SetCannonId(canonId);
 
+        SetTextMatchCurrentBulletAmount();
+
         controller.SetActive(false);
         controllerWhenUsing.SetActive(false);
         //StartCoroutine(ShootLoop());
@@ -78,35 +81,19 @@ public class CannonUse : MonoBehaviour
 
     private void Update()
     {
-        if (isPlayerInside && gamepadId > -1)
+        return;
+        if (isPlayerInside && !PlayerInputProcessor.IsGamepadInvalid(gamepadId))
         {
+
             bool use = Gamepad.all[gamepadId].buttonNorth.wasPressedThisFrame;
             if (use)
             {
-                isInUse = !isInUse;
-                if (isInUse)
-                {
-                    ActivateCanon();
-                }
-                else
-                {
-                    DeactivateCanon();
-                }
-
+                EnterExitCanon();
             }
 
             if (isInUse && Gamepad.all[gamepadId].buttonSouth.wasPressedThisFrame && canShoot)
             {
-                if (currentBulletAmount > 0)
-                {
-                    --currentBulletAmount;
-                    Shoot();
-
-                    if (currentBulletAmount == 0)
-                    {
-                        if (OnPlayerRunsOutOfAmmo != null) OnPlayerRunsOutOfAmmo();
-                    }
-                }
+                TryShootCanon();
             }
         }
 
@@ -117,7 +104,11 @@ public class CannonUse : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Player"))
         {
-            gamepadId = collision.gameObject.GetComponent<PlayerInputProcessor>().gamepadId;
+            playerInputProcessorUser = collision.gameObject.GetComponent<PlayerInputProcessor>();
+            gamepadId = playerInputProcessorUser.gamepadId;
+            playerInputProcessorUser.OnCanonEnterExitAction += EnterExitCanon;
+
+
             isPlayerInside = true;
 
             bulletAmount = collision.gameObject.GetComponentInChildren<PickUpCollector>().pickUpCounter;
@@ -136,7 +127,11 @@ public class CannonUse : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Player"))
         {
+            playerInputProcessorUser.OnCanonEnterExitAction -= EnterExitCanon;
+            playerInputProcessorUser = null;
             gamepadId = -1;
+
+
             isPlayerInside = false;
 
             characterMovementUser = null;
@@ -147,6 +142,20 @@ public class CannonUse : MonoBehaviour
         }
     }
 
+
+    private void TryShootCanon()
+    {
+        if (currentBulletAmount > 0)
+        {
+            --currentBulletAmount;
+            Shoot();
+
+            if (currentBulletAmount == 0)
+            {
+                if (OnPlayerRunsOutOfAmmo != null) OnPlayerRunsOutOfAmmo();
+            }
+        }
+    }
 
     private void Shoot()
     {
@@ -182,12 +191,28 @@ public class CannonUse : MonoBehaviour
     }
 
 
+    private void EnterExitCanon()
+    {
+        isInUse = !isInUse;
+        if (isInUse)
+        {
+            ActivateCanon();
+        }
+        else
+        {
+            DeactivateCanon();
+        }
+    }
+
 
 
     private void ActivateCanon()
     {
         characterMovementUser.rb.velocity = Vector2.zero;
         characterMovementUser.enabled = false;
+
+        playerInputProcessorUser.OnCanonShootAction += TryShootCanon;
+
 
         autoRotate.Resume();
 
@@ -202,6 +227,9 @@ public class CannonUse : MonoBehaviour
     private void DeactivateCanon()
     {
         characterMovementUser.enabled = true;
+
+        playerInputProcessorUser.OnCanonShootAction -= TryShootCanon;
+
 
         autoRotate.Pause();
 
