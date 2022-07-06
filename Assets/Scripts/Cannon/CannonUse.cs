@@ -53,6 +53,7 @@ public class CannonUse : MonoBehaviour
     {
         crosshair.SetCannonId(canonId);
 
+        bulletAmount = 0;
         SetTextMatchCurrentBulletAmount();
 
         controller.SetActive(false);
@@ -134,6 +135,7 @@ public class CannonUse : MonoBehaviour
 
             isPlayerInside = false;
 
+            characterMovementUser.enabled = true;
             characterMovementUser = null;
 
             controller.SetActive(false);
