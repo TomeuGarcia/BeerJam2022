@@ -23,6 +23,26 @@ public class PunchAbility : MonoBehaviour
         playerInput.OnAbilityInvoke -= Punch;
     }
 
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.CompareTag("Canon"))
+        {
+            playerInput.OnAbilityInvoke -= Punch;
+        }
+    }
+
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.CompareTag("Canon"))
+        {
+            playerInput.OnAbilityInvoke += Punch;
+        }
+    }
+
+
+
     void Punch()
     {
         anim.Punch();
