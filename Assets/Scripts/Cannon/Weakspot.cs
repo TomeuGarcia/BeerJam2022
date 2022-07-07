@@ -32,6 +32,7 @@ public class Weakspot : MonoBehaviour
 
     [SerializeField] AudioSource takeDamageAS;
     [SerializeField] AudioSource noTakeDamageAS;
+    [SerializeField] AudioSource popAS;
 
 
 
@@ -39,16 +40,18 @@ public class Weakspot : MonoBehaviour
     {
         startColor = sr.GetComponent<SpriteRenderer>().color;
 
-        StartCoroutine(BlobCooldown(Random.Range(0.0f, 2.0f)));
+        StartCoroutine(AwakeRevive());
     }
 
     private void OnEnable()
     {
+        CannonUse.OnPlayerRunsOutOfAmmo += Revive;
         CannonUse.OnPlayerDismount += Revive;
     }
 
     private void OnDisable()
     {
+        CannonUse.OnPlayerRunsOutOfAmmo -= Revive;
         CannonUse.OnPlayerDismount -= Revive;
     }
 
@@ -65,6 +68,8 @@ public class Weakspot : MonoBehaviour
 
     public void TakeDamage(int playerId)
     {
+        if (!isAlive) return;
+
         if (playerId == 0)
         {
             if (damagedByPlayer0)
@@ -126,6 +131,17 @@ public class Weakspot : MonoBehaviour
         sr.DOKill();
     }
 
+    IEnumerator AwakeRevive()
+    {
+        //transform.localScale = Vector3.zero;
+
+        yield return new WaitForSeconds(Random.Range(2f, 4f));
+
+        Revive();
+
+        StartCoroutine(BlobCooldown(Random.Range(0.0f, 2.0f)));
+    }
+
     private void Revive()
     {
         if (!isAlive)
@@ -139,6 +155,9 @@ public class Weakspot : MonoBehaviour
         sr.color = startColor;
 
         damageCountByPlayer0 = damageCountByPlayer1 = 0;
+
+        popAS.pitch = Random.Range(0.8f, 1.2f);
+        popAS.Play();
     }
 
 
