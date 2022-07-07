@@ -111,8 +111,9 @@ public class GrappleAbility : MonoBehaviour
                 grappleMarker.GetComponent<SpriteRenderer>().color = Color.white;
                 distance = currentDistance;
                 grappleObject = grappleObjects[i];
-                grappleMarker.transform.position = grappleObject.transform.position;
-
+                //grappleMarker.transform.position = grappleObject.transform.position;
+                grappleMarker.transform.SetParent(grappleObject.transform);
+                grappleMarker.transform.localPosition = Vector3.zero;
             }
         }
 

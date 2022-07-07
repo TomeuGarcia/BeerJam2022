@@ -54,12 +54,16 @@ public class PlayerInputProcessor : MonoBehaviour
         movementAxis += Gamepad.all[gamepadId].leftStick.ReadValue();
         if (Gamepad.all[gamepadId].buttonSouth.wasPressedThisFrame)
         {
-            if (OnJumpAction == null) return;
-            OnJumpAction.Invoke();
+            if (OnJumpAction != null) OnJumpAction.Invoke();
+            if (OnCanonShootAction != null) OnCanonShootAction.Invoke();
         }
         if (Gamepad.all[gamepadId].buttonWest.wasPressedThisFrame)
         {
-            OnAbilityInvoke.Invoke();
+            if(OnAbilityInvoke != null) OnAbilityInvoke.Invoke();
+        }
+        if (Gamepad.all[gamepadId].buttonNorth.wasPressedThisFrame)
+        {
+            if (OnCanonEnterExitAction != null) OnCanonEnterExitAction.Invoke();
         }
     }
 
