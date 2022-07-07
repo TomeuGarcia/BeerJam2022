@@ -22,6 +22,8 @@ public class PlayerInputProcessor : MonoBehaviour
 
     void Update()
     {
+        movementAxis = Vector2.zero;
+
         if ((inputConfig & InputConfig.Controller) == InputConfig.Controller)
         {
             UpdateControllersConfigInput();
@@ -35,6 +37,7 @@ public class PlayerInputProcessor : MonoBehaviour
             UpdateArrowsConfigInput();
         }
 
+        movementAxis.x = Mathf.Clamp(movementAxis.x, -1f, 1f);
     }
 
     
@@ -48,22 +51,26 @@ public class PlayerInputProcessor : MonoBehaviour
     {
         if (IsGamepadInvalid(gamepadId)) return;
 
-        movementAxis = Gamepad.all[gamepadId].leftStick.ReadValue();
+        movementAxis += Gamepad.all[gamepadId].leftStick.ReadValue();
         if (Gamepad.all[gamepadId].buttonSouth.wasPressedThisFrame)
         {
-            if (OnJumpAction == null) return;
-            OnJumpAction.Invoke();
+            if (OnJumpAction != null) OnJumpAction.Invoke();
+            if (OnCanonShootAction != null) OnCanonShootAction.Invoke();
         }
         if (Gamepad.all[gamepadId].buttonWest.wasPressedThisFrame)
         {
-            OnAbilityInvoke.Invoke();
+            if(OnAbilityInvoke != null) OnAbilityInvoke.Invoke();
+        }
+        if (Gamepad.all[gamepadId].buttonNorth.wasPressedThisFrame)
+        {
+            if (OnCanonEnterExitAction != null) OnCanonEnterExitAction.Invoke();
         }
     }
 
 
     private void UpdateWASDConfigInput()
     {
-        movementAxis.x = -Keyboard.current.aKey.ReadValue() + Keyboard.current.dKey.ReadValue();
+        movementAxis.x += -Keyboard.current.aKey.ReadValue() + Keyboard.current.dKey.ReadValue();
         //movementAxis.y = -Keyboard.current.sKey.ReadValue() + Keyboard.current.wKey.ReadValue();
 
         if (Keyboard.current.wKey.wasPressedThisFrame)
@@ -81,7 +88,7 @@ public class PlayerInputProcessor : MonoBehaviour
 
     private void UpdateArrowsConfigInput()
     {
-        movementAxis.x = -Keyboard.current.leftArrowKey.ReadValue() + Keyboard.current.rightArrowKey.ReadValue();
+        movementAxis.x += -Keyboard.current.leftArrowKey.ReadValue() + Keyboard.current.rightArrowKey.ReadValue();
         //movementAxis.y = -Keyboard.current.downArrowKey.ReadValue() + Keyboard.current.upArrowKey.ReadValue();
 
         if (Keyboard.current.upArrowKey.wasPressedThisFrame)

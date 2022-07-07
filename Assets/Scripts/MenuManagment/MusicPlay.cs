@@ -10,7 +10,9 @@ public class MusicPlay : MonoBehaviour
     private bool NotFirst = false;
     [SerializeField] AudioClip menuMusic;
     [SerializeField] AudioClip gameMusic;
+    [SerializeField] AudioClip canonMusic;
     private float baseMusicVolume;
+    private int playersUsingCanon;
 
     private void Awake()
     {
@@ -33,6 +35,18 @@ public class MusicPlay : MonoBehaviour
         _audioSource = GetComponent<AudioSource>();
 
         baseMusicVolume = _audioSource.volume;
+    }
+
+    private void OnEnable()
+    {
+        CannonUse.OnPlayerMount += PlayerEntersCanon;
+        CannonUse.OnPlayerDismount += PlayerExitsCanon;
+    }
+
+    private void OnDisable()
+    {
+        CannonUse.OnPlayerMount -= PlayerEntersCanon;
+        CannonUse.OnPlayerDismount -= PlayerExitsCanon;
     }
 
     public void PlayMusic()
@@ -73,5 +87,23 @@ public class MusicPlay : MonoBehaviour
         _audioSource.Play();
     }
 
+    public void TransitionToCanonMusic()
+    {
+        _audioSource.DOFade(0f, 1f).OnComplete(() => PlayMusic(canonMusic));
+    }
 
+    private void PlayerEntersCanon()
+    {
+        if(++playersUsingCanon == 2)
+        {
+            TransitionToCanonMusic();
+        }
+    }
+    private void PlayerExitsCanon()
+    {
+        if (--playersUsingCanon == 1)
+        {
+            TransitionToGameMusic();
+        }
+    }
 }
