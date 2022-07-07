@@ -13,6 +13,9 @@ public class GrappleAbility : MonoBehaviour
     public Transform hand;
     [SerializeField] PlayerSounds playerSounds;
 
+    bool isOccupied = false;
+
+
     private void OnEnable()
     {
         playerInput = GetComponent<PlayerInputProcessor>();
@@ -25,6 +28,8 @@ public class GrappleAbility : MonoBehaviour
 
     private void Update()
     {
+        if (isOccupied) return;
+
         if (grappling)
         {
             line.enabled = true;
@@ -39,6 +44,26 @@ public class GrappleAbility : MonoBehaviour
         }
         if(GetPossibleObjects());
     }
+
+    private void OnTriggerStay2D(Collider2D collision)
+    {
+        if (collision.CompareTag("Canon"))
+        {
+            //playerInput.OnAbilityInvoke -= GrappleAction;
+            isOccupied = true;
+        }
+    }
+
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.CompareTag("Canon"))
+        {
+            //playerInput.OnAbilityInvoke += GrappleAction;
+            isOccupied = false;
+        }
+    }
+
 
     public void GrappleAction()
     {
