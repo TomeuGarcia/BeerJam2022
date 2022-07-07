@@ -1788,6 +1788,7 @@ MonoBehaviour:
   _audioSource: {fileID: 1643200650}
   menuMusic: {fileID: 8300000, guid: a7a47745a76d1c54b8b253058613a95c, type: 3}
   gameMusic: {fileID: 8300000, guid: ab73abeae0a097944849693997c70e38, type: 3}
+  canonMusic: {fileID: 8300000, guid: a7a47745a76d1c54b8b253058613a95c, type: 3}
 --- !u!1 &1676475296
 GameObject:
   m_ObjectHideFlags: 0
