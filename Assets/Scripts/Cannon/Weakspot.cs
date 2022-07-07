@@ -12,14 +12,14 @@ public class Weakspot : MonoBehaviour
     [SerializeField] Color player0Color;
     [SerializeField] Color player1Color;
 
-    const int maxDamage = 3;
+    const int maxDamage = 2;
     int damageCountByPlayer0 = 0;
     int damageCountByPlayer1 = 0;
 
     bool damagedByPlayer0 => damageCountByPlayer0 >= maxDamage;
     bool damagedByPlayer1 => damageCountByPlayer1 >= maxDamage;
 
-    float colorLoopDuration = 1.0f;
+    float colorLoopDuration = 2.0f;
 
     [SerializeField] float blobCooldownDuration = 1.0f;
     bool canBlob = false;
@@ -105,12 +105,12 @@ public class Weakspot : MonoBehaviour
 
     private void TurnPlayer0Color()
     {
-        sr.DOColor(player0Color, colorLoopDuration).OnComplete(() => sr.DOColor(startColor, colorLoopDuration).OnComplete(() => TurnPlayer0Color()));
+        sr.DOColor(player0Color, colorLoopDuration).OnComplete(() => sr.DOColor(startColor, colorLoopDuration/3f).OnComplete(() => TurnPlayer0Color()));
     }
 
     private void TurnPlayer1Color()
     {
-        sr.DOColor(player1Color, colorLoopDuration).OnComplete(() => sr.DOColor(startColor, colorLoopDuration).OnComplete(() => TurnPlayer1Color()));
+        sr.DOColor(player1Color, colorLoopDuration).OnComplete(() => sr.DOColor(startColor, colorLoopDuration/3f).OnComplete(() => TurnPlayer1Color()));
     }
 
 

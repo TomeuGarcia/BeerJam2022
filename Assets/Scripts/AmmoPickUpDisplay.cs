@@ -27,8 +27,18 @@ public class AmmoPickUpDisplay : MonoBehaviour
     IEnumerator DelayedFade()
     {
         yield return new WaitForSeconds(2f);
-        sr.DOFade(0f, 2f).OnComplete(() => Destroy(gameObject));
+
+        sr.DOFade(0f, 2f);
+
+        yield return new WaitForSeconds(1f);
+
+        End();
     }
 
+
+    private void End()
+    {
+        Destroy(gameObject);
+    }
 
 }

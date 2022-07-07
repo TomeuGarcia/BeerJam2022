@@ -2,8 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GrappleObject : MonoBehaviour
+public class GrappleObject : IActivateable
 {
+    [SerializeField] bool startsEnabled = true;
+    bool isEnabled = false;
+
     public float consumeTime = 5;
     public bool consumed = false; 
     void Start()
@@ -25,6 +28,16 @@ public class GrappleObject : MonoBehaviour
     }
     void Update()
     {
-        
+        if (!startsEnabled)
+        {
+            if (!isEnabled) consumed = true;
+        }
+    }
+
+
+    public override void Activate()
+    {
+        isEnabled = true;
+        consumed = false;
     }
 }

@@ -6,6 +6,7 @@ using DG.Tweening;
 
 public class CovidWall : MonoBehaviour
 {
+    [SerializeField] SpriteRenderer sr;
     [SerializeField] int weakspotAmount;
     int destroyedWeakspotAmount;
 
@@ -16,6 +17,17 @@ public class CovidWall : MonoBehaviour
 
     public delegate void CovidWallAction();
     public static event CovidWallAction OnAllPlayersOutOfAmmo;
+    public static event CovidWallAction OnDeathStart;
+    public static event CovidWallAction OnDeathEnd;
+
+
+    
+
+
+    private void Update()
+    {
+        
+    }
 
 
     private void OnEnable()
@@ -39,6 +51,7 @@ public class CovidWall : MonoBehaviour
 
         if (destroyedWeakspotAmount >= weakspotAmount)
         {
+            if (OnDeathStart != null) OnDeathStart();
             StartCoroutine(DestroyedAnimation());
         }
 
@@ -47,7 +60,9 @@ public class CovidWall : MonoBehaviour
     IEnumerator DestroyedAnimation()
     {
         yield return new WaitForSeconds(2f);
-        wallTransform.DOPunchScale(new Vector3(0.4f, 0.2f, 0f), 2f).OnComplete(() => gameObject.SetActive(false));
+        wallTransform.DOPunchScale(new Vector3(0.4f, 0.2f, 0f), 2f).OnComplete(
+            () => sr.DOFade(0f, 2f).OnComplete( 
+                () => Die()));
     }
 
     private void DoPlayerOutOfAmmo()
@@ -58,6 +73,14 @@ public class CovidWall : MonoBehaviour
             numberOfPlayersOutOfAmmo = 0;
         }
     } 
+
+
+    private void Die()
+    {
+        if (OnDeathEnd != null) OnDeathEnd();
+
+        //gameObject.SetActive(false);
+    }
 
 
 

@@ -3,11 +3,19 @@ using UnityEngine;
 public class GrappleAbility : MonoBehaviour
 {
     private PlayerInputProcessor playerInput;
+    public CharacterAnimation anim;
     public float radius;
     public LayerMask grappleLayer;
     public bool grappling = false;
     Collider2D grappleObject = null;
     public GameObject grappleMarker;
+    public LineRenderer line;
+    public Transform hand;
+    [SerializeField] PlayerSounds playerSounds;
+
+    bool isOccupied = false;
+
+
     private void OnEnable()
     {
         playerInput = GetComponent<PlayerInputProcessor>();
@@ -20,21 +28,54 @@ public class GrappleAbility : MonoBehaviour
 
     private void Update()
     {
+        if (isOccupied) return;
+
         if (grappling)
+        {
+            line.enabled = true;
+            line.SetPosition(0, hand.position);
+            line.SetPosition(1,  grappleObject.transform.position);
             return;
+
+        }
+        else
+        {
+            line.enabled = false;
+        }
         if(GetPossibleObjects());
     }
+
+    private void OnTriggerStay2D(Collider2D collision)
+    {
+        if (collision.CompareTag("Canon"))
+        {
+            //playerInput.OnAbilityInvoke -= GrappleAction;
+            isOccupied = true;
+        }
+    }
+
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.CompareTag("Canon"))
+        {
+            //playerInput.OnAbilityInvoke += GrappleAction;
+            isOccupied = false;
+        }
+    }
+
 
     public void GrappleAction()
     {
         Debug.Log("Grappling");
         if (grappling)
         {
+            anim.Grapple(false);
             Ungrapple();
         }
         else
         {
-            
+   
             Grapple();
         }
     }
@@ -47,6 +88,8 @@ public class GrappleAbility : MonoBehaviour
         SpringJoint2D joint = grappleObject.GetComponent<SpringJoint2D>();
         joint.connectedBody = GetComponent<Rigidbody2D>();
         grappling = true;
+        playerSounds.PlayAbilitySound();
+        anim.Grapple(true);
     }
 
     private bool GetPossibleObjects()

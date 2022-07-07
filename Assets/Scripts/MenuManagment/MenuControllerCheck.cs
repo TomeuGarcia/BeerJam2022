@@ -24,15 +24,26 @@ public class MenuControllerCheck : MonoBehaviour
     void Update()
     {
 
-        if (Gamepad.all.Count < 1) return;
-        if (Gamepad.all[gamepadId0].buttonSouth.wasPressedThisFrame)
+        if (Gamepad.all.Count == 1)
         {
-            tick0.SetActive(true);
+            if (Gamepad.all[gamepadId0].buttonSouth.wasPressedThisFrame)
+            {
+                tick0.SetActive(true);
+            }
         }
 
-        if (Gamepad.all.Count < 2) return;
-        if (Gamepad.all[gamepadId1].buttonSouth.wasPressedThisFrame)
+        if (Gamepad.all.Count == 2)
         {
+            if (Gamepad.all[gamepadId1].buttonSouth.wasPressedThisFrame)
+            {
+                tick1.SetActive(true);
+            }
+        }
+
+
+        if (Keyboard.current.spaceKey.wasPressedThisFrame)
+        {
+            tick0.SetActive(true);
             tick1.SetActive(true);
         }
 

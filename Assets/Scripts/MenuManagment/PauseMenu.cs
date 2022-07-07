@@ -7,32 +7,55 @@ using UnityEngine.SceneManagement;
 public class PauseMenu : MonoBehaviour
 {
     [SerializeField] GameObject pauseMenu;
-    public int gamepadId0;
-    public int gamepadId1;
+    public int gamepadId0 = 0;
+    public int gamepadId1 = 1;
 
     private bool isPaused = false;
+
+    private void Awake()
+    {
+        pauseMenu.SetActive(false);
+    }
 
 
     private void Update()
     {
-        if (Gamepad.all[gamepadId0].startButton.wasPressedThisFrame || Gamepad.all[gamepadId1].startButton.wasPressedThisFrame && isPaused == false)
+        if ((Gamepad.all.Count > 0 && (Gamepad.all[gamepadId0].startButton.wasPressedThisFrame || Gamepad.all[gamepadId1].startButton.wasPressedThisFrame)) ||
+            Keyboard.current.escapeKey.wasPressedThisFrame)
         {
-            pauseMenu.SetActive(true);
-            Time.timeScale = 0f;
-            isPaused = true;
+            if (isPaused)
+            {
+                Resume();
+            }
+            else
+            {
+                Pause();
+            }
         }
+    }
 
-        if (Gamepad.all[gamepadId0].startButton.wasPressedThisFrame || Gamepad.all[gamepadId1].startButton.wasPressedThisFrame && isPaused)
-        {
-            pauseMenu.SetActive(false);
-            Time.timeScale = 1f;
-            isPaused = false;
-        }
+    private void Pause()
+    {
+        pauseMenu.SetActive(true);
+        Time.timeScale = 0f;
+        isPaused = true;
+    }
 
-        if (Gamepad.all[gamepadId0].selectButton.wasPressedThisFrame || Gamepad.all[gamepadId1].selectButton.wasPressedThisFrame && isPaused)
-        {
-            Time.timeScale = 1f;
-            SceneManager.LoadScene(1);
-        }
+    public void Resume()
+    {
+        Time.timeScale = 1f;
+        isPaused = false;
+        pauseMenu.SetActive(false);
+    }
+
+    public void Home()
+    {
+        Time.timeScale = 1f;
+        SceneManager.LoadScene(1);
+    }
+
+    public void ExitGame()
+    {
+        Application.Quit();
     }
 }
