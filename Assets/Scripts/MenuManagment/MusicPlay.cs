@@ -41,12 +41,16 @@ public class MusicPlay : MonoBehaviour
     {
         CannonUse.OnPlayerMount += PlayerEntersCanon;
         CannonUse.OnPlayerDismount += PlayerExitsCanon;
+        PauseMenu.OnGoToMainMenu += TransitionToMainMenuMusic;
+        SceneSwitch.OnGoToGameScene += TransitionToGameMusic;
     }
 
     private void OnDisable()
     {
         CannonUse.OnPlayerMount -= PlayerEntersCanon;
         CannonUse.OnPlayerDismount -= PlayerExitsCanon;
+        PauseMenu.OnGoToMainMenu -= TransitionToMainMenuMusic;
+        SceneSwitch.OnGoToGameScene -= TransitionToGameMusic;
     }
 
     public void PlayMusic()

@@ -12,6 +12,10 @@ public class PauseMenu : MonoBehaviour
 
     private bool isPaused = false;
 
+    public delegate void PauseMenuAction();
+    public static event PauseMenuAction OnGoToMainMenu;
+
+
     private void Awake()
     {
         pauseMenu.SetActive(false);
@@ -50,6 +54,8 @@ public class PauseMenu : MonoBehaviour
 
     public void Home()
     {
+        if (OnGoToMainMenu != null) OnGoToMainMenu();
+
         Time.timeScale = 1f;
         SceneManager.LoadScene(1);
     }
